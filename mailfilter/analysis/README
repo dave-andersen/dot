@@ -1,0 +1,31 @@
+Capturing mail traces:
+  pack_mfmilter.pl is a utility script to pack the 
+  per-message log files into one file.  Save an inode,
+  run this script somewhat regularly. 
+
+Analyzing the mail capture files:
+
+  1)  Put them in the 'mail' subdirectory (or whatever you choose)
+      The "mlog.rb" library understands how to deal with a directory
+      full of packed mail logs created by the pack_mfmilter.pl script.
+
+  2)  run mailparse.rb <subdir>
+
+    -> This creates sharedbodies.hist and wholesize.cdf
+    which you can graph as described below
+
+  3)  If you wish to create a the "simulated" email messages to
+      feed to postscript:
+       - mkdir out
+       - run mailregen.rb <subdir>
+
+      This will populate 'out' with a huge batch of generated
+      emails that have the same chunk hash values as the 
+      originals (but random content).
+
+Creating the plots for the NSDI 2006 paper:
+
+gnuplot makeplots.gp
+
+On FreeBSD, you may need to set the font path:
+setenv GNUPLOT_FONTPATH /usr/local/share/texmf-dist/fonts/type1/urw/helvetic/

@@ -1,0 +1,12 @@
+DOT is distributed under the Eclipse Public License.  Note, however,
+that to actually be used, DOT must be compiled against the sfslite
+libraries and programs or an equivalent set of libraries that provide
+the same functions.  Some of the sfslite libraries, programs, and
+header files are licensed under the GPL.  So, practically speaking,
+you won't be able to redistribute compiled binary copies of
+DOT+sfslite without making all of the source code available, and it's
+a bit murky.
+
+Our hope is to make DOT as widely used and easy to distribute as
+possible.  If you'd like to have the code under a different license
+(the DOT code, not the sfslite code), please just ask.

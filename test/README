@@ -1,0 +1,21 @@
+Test layout:
+ - gcp_test.sh:
+   A good, verbose, "my system isn't working" base test.
+   Spawns two gtcds in xterms, runs gcp over ssh to localhost
+   to copy a file.  You need to be able to ssh in to your
+   local machine for this test to work.
+   (Uses other_gcp.sh)
+
+ - dot-test.rb:
+   A more comprehensive set of tests that don't provide as much
+   useful debugging output, but test more things.
+   (requires spawn_buffered.rb and unit_test_hack.rb)
+
+Profiling info (kaminsky):
+  LD_LIBRARY_PATH=/usr/lib/debug PCT_OUT=./pct PCT_FMT="%sym" profile ./gtcd -f ../test/gcp_test.conf
+  pct line% ./pct/gtcd.31660/gtcd
+
+Refcount debugging:
+  before the #include that eventually references refcnt.h, put
+      using namespace std;
+      #define VERBOSE_REFCNT 1

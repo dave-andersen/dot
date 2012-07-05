@@ -1,0 +1,16 @@
+This directory is for the progras that run as sendmail/mailavenger
+filters and collect traces for later analysis.
+
+Compiling the sendmail milter requires a bit of hackery; you must have
+the sendmail source installed somewhere convenient, and have built the
+libmilter.a library
+
+I check out a copy of sendmail into the same place I create my DOT
+build directory, and compile this way:
+
+gcc mfmilter.c -I../../sendmail-8.13.4 -L ../../sendmail-8.13.4/libmilter/ -I../../sendmail-8.13.4/include -lmilter -pthread -o mfmilter
+
+Not pretty, but we can worry about prettifying it later if we want.
+Getting all of this integrated with libasync could be an adventure, if
+we go that route.
+

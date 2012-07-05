@@ -1,0 +1,48 @@
+To use the Similarity-Enhanced Transfer system:
+
+0)  Use the appropriate gtcd configuration file on both the clients
+    and servers.
+
+    see test/gcp_test_set.conf
+
+    for an example of a conf file that includes the SET plugins.
+
+
+1)  Start the cDHT ("centralized distribiuted hash table"), unless you're
+    using OpenDHT.
+
+       cdht/cdht_server
+
+    You can choose between these by setting the DHT IP address and port
+    in the gtcd conf file when you instantiate the [storage] plugin:
+
+     [storage]
+     sset disk IP PORT
+     disk
+
+    If you leave the IP and PORT null, SET will instead attempt to use
+    OpenDHT by finding the address returned by resolving opendht.nyuld.net
+
+
+2)  Start the server gtcd
+
+3)  PUT the file into the server gtcd, using gcp in "put-only" mode:
+
+    gcp --put-only <file>
+
+    This will create a new file, "current.dot" in your directory.
+    This file is the specification file that allows clients to download
+    the file.
+
+4)  Copy "current.dot" to the clients where you want to download the file
+
+5)  Start the client gtcds
+
+6)  GET the file on the client side, using gcp in "get-only" mode:
+
+     gcp --get-only current.dot ./output_file_name
+
+Notes:
+
+  * You can put an entire directory tree using --put-only.  To do so, just
+    give it the name of a directory instead of a file.

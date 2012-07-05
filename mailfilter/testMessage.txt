@@ -1,0 +1,40 @@
+Connection: 192.168.1.1
+EnvelopeFrom: foo@bar-list.com
+EnvelopeRcpt: person1@company.com
+EnvelopeRcpt: person2@company.com
+EnvelopeRcpt: personn@company.com
+Received: from a.com ([1.2.3.4]) by b.com with Microsoft SMTPSVC(6.0.3790.211);
+	 Thu, 24 Mar 2005 23:36:34 -0700
+Message-ID: <BKELLDAGKABIOCHDFD568DGAA.dannmichael.d.sheley@a.com>
+Date: Fri, 25 Mar 2005 00:24:35 -0600
+From: "Stan Reilly" <offed@fadmail.com>
+To: <michael.d.sheley@b.com>
+Subject: Re-finance at todays low rate
+
+Hello,
+
+ We tried contacting you awhile ago about your low interest morta(ge rate.
+
+ You have qualified for the lowest rate in years...
+
+ You could get over $380,000 for as little as $500 a month!
+
+ Ba(d credit? Doesn't matter, low rates are fixed no matter what!
+
+ 
+ To get a free, no obli,gation consultation click below:
+
+ http://www.ok-ref-yes.net/nowss.asp
+
+
+
+ Best Regards,
+
+ Sabrina Rushing
+ 
+ to be remov(ed:	http://www.ok-ref-yes.net/gone.asp
+
+ this process takes one week, so please be patient. we do our 
+ best to take your email/s off but you have to fill out a rem/ove
+ or else you will continue to recieve email/s.
+

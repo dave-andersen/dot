@@ -1,0 +1,20 @@
+To use this, you must generate an RSA public / private keypair.
+Keep the private one, well, private (you'll need it to sign the
+broadcast) and put the public one on machines with plcmd_daemon.
+
+openssl genrsa -out key.pem 1024
+openssl rsa -in key.pem -out pubkey.pem -outform PEM -pubout
+
+To use:
+
+run plcmd_daemon on every node you have
+  (use -p to specify a port if desired)
+
+plcmd -n <nodelist> -c <cmdfile>
+
+nodelist is a list of IP:port pairs
+192.168.0.1:8932
+
+etc.
+cmdfile contains the text of the command that is passed to system()
+

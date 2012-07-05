@@ -1,0 +1,10 @@
+arpc.patch
+
+  This is a patch to sfslite2 to learn if there are any more pending
+  packets in recvbuf in axprt.  Apply as follows:
+  
+    $ cd sfslite2 && patch -p0 < /path/to/arpc.patch
+
+rabin.patch
+
+    $ cd sfslite2 && patch -p0 < /path/to/rabin.patch

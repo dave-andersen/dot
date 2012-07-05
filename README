@@ -1,0 +1,102 @@
+                            ########################
+                                DOT Installation   
+                            ########################
+
+To build DOT, there are two steps:
+
+  1.  Build sfslite2
+  2.  Build DOT
+
+Step 1.
+~~~~~~
+
+  You need sfslite2 version 1.2 or later.  Please do the 
+  following ($DOTROOT is the top-level DOT source tree):
+
+    $ svn checkout svn://svn.okws.org/sfslite2/devel/1.2 sfslite2
+
+    ** Patch your sfslite according to patches/README (in DOT src/trunk)
+    $ cd sfslite2
+    $ sh -x setup.gnu -f -i -s
+    $ ./configure
+    $ make
+     
+  See http://www.okws.org/doku.php?id=sfslite for more information.
+
+Step 2.
+~~~~~~
+
+    $ cd $DOTROOT
+
+  To configure the first time you checkout:
+
+    $ autoreconf -i -s
+
+  To build, do the usual (out-of-directory builds work too):
+
+    $ ./configure --with-sfs=/path/to/sfslite2
+    $ make
+
+  Other useful options:
+  
+    To specify a path to the BerkeleyDB libraries
+      $ ./configure --with-sfs=... --with-db=/usr
+  
+    Libraries are static by default; to make binary programs static too:
+      $ LDFLAGS=-static ./configure ...
+      (or the equivalent for your shell)
+  
+--------------------------------------------------------------
+---- System specific configuration and installation nodes ----
+--------------------------------------------------------------
+
+Linux (tested on Ubuntu 6.10)
+  - install autoconf, libtool, libgmp3-dev, byacc, flex,
+    libssl-dev libbdb4.4++-dev (or something like that)
+
+FreeBSD 5.x
+  - You must use the "gnu-{autoconf,automake,libtool}"
+    packages to compile DOT.  The default FreeBSD installs of automake, etc.,
+    are hacked to work with the ports system and will not work for DOT.
+
+  - You must install the openssl package or port.  The default FreeBSD
+    openssl does not include the pkg-config file for openssl.
+
+  - You must have pkgconfig installed
+
+  - You must copy the "pkg.m4" file from /usr/local/share/aclocal
+    into /usr/local/gnu-autotools/share/aclocal/
+    before running autoreconf.
+
+  - Use gmake and not make
+
+FreeBSD 6.x:
+  - You don't have to install gnu-libtool, just the other two
+  - Use gmake and not make
+  - You must also copy "libtool.m4" from /usr/local/share/aclocal
+    into /usr/local/gnu-autotools/share/aclocal
+  - Put /usr/local/gnu-autotools/bin in your path (don't run the
+    autotools from /usr/local/bin)
+
+OS X:
+  If using macports,
+   - sudo port install db44 (or 45 or 46, as appropriate)
+   - sudo port install libgmp
+   - configure --with-sfs=/path/to/your/sfs --with-gmp=/opt/local --with-db=/opt/local
+
+---- Cygwin -----
+
+First, ensure that the necessary Cygwin packages are installed
+to compile and run the sfslite and DOT code:
+   make, bison, flex, automake, autoconf, libtool, pkg-config, 
+   libgmp, minires-devel, sunrpc
+
+Next, you'll need to add modern function prototypes to the sunrpc
+header files.  The Cygwin default sunrpc package provides header files
+in /usr/include/rpc/ that date from the mid 80s.  Unfortunately, the
+headers use K&R syntax, which g++ strongly dislikes because of C++'s
+strong type checking.  To correct this, you'll need to add the argument
+prototypes for a number of functions in the directory.
+
+XXX - we need to clarify these instructions more and make sure
+they're complete.

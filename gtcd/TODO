@@ -1,0 +1,66 @@
+- Fix caching of descriptor lists in Storage Plugin. Address
+associated things like replacement policy, etc.
+
+- Additional tests
+   - Delayed writing to better test swarming in SET
+   - symlinks;  verify file permissions, etc. with gcp
+
+- Metadata passing
+
+   * get_init (noop storage plugin for get_*)
+   * ggcmd
+   * pass (ggcmd result) to get_chunk RPC
+   
+   * postfix / external interface work
+
+- Add version information to the OID
+
+April 30th, 2007
+
+Code
+
+- cancel_chunks in xfer_gtc -- imp for cleaning dsync
+
+- figure out if connection cache functionality can be factored 
+out of dht and gtc - DONE
+
+- get descriptors from swarmers
+idea - Have a hash of the descriptor list passed to the receiver...
+recvr gets identical sources from dht, picks a source to get descriptors
+and uses the hash to verify the correctness of the descriptors - 
+DONE Test it with more cases in SET
+
+- test with rabin chunking
+
+- have a concept of shared folder in DOT
+
+- bitmaps asynchronous
+
+- make sure opendht interface is still working, need to take care of refreshing
+mappings in opendht for long term operation, version numbers between runs etc
+since we cant reset DHT everytime.
+
+- have DOT cleanly exit, restart etc..
+
+- cleanup in msrc to make the block to source allocation more efficient
+
+- cleanup in gcp for special casing just a file download
+
+Test framework
+
+- simulate delay in gtc to make tests more meaningful over localhost
+
+- add more tests in the test framework to test corner cases etc.
+
+- automate emulab tests to the best
+
+- some basic output to perform visualization of msrc stuff
+
+Sept 11th, 2007
+
+dsync - abort ops when the probability of finding something useful is
+small. Question -- Are the first few blocks of a file indicative of
+the similarity to come?
+
+msrc - expose priority among objects when being transferred.
+

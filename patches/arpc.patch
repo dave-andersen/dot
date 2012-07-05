@@ -1,0 +1,77 @@
+Index: arpc/axprt.h
+===================================================================
+--- arpc/axprt.h	(revision 2973)
++++ arpc/axprt.h	(working copy)
+@@ -52,7 +52,8 @@
+   virtual void poll () = 0;
+   virtual int getreadfd () = 0;
+   virtual int getwritefd () = 0;
+-
++  virtual bool pending_pkts() { return false; }
++    
+   void send (const void *data, size_t len, const sockaddr *dest) {
+     iovec iov = {(char *) data, len};
+     sendv (&iov, 1, dest);
+@@ -103,6 +104,7 @@
+   recvcb_t cb;
+   u_int32_t pktlen;
+   char *pktbuf;
++  bool pending_pkt;
+ 
+   struct suio *out;
+   bool wcbset;
+@@ -116,12 +118,13 @@
+   virtual int dowritev (int iovcnt) { return out->output (fdwrite, iovcnt); }
+   virtual void recvbreak ();
+   virtual bool getpkt (char **, char *);
+-
++   
+   void _sockcheck(int fd);
+   void fail ();
+   void input ();
+   void callgetpkt ();
+   void output ();
++  bool pending_pkts () { return pending_pkt; }
+   
+   axprt_pipe (int rfd, int wfd, size_t ps, size_t bufsize = 0);
+   virtual ~axprt_pipe ();
+Index: arpc/axprt_pipe.C
+===================================================================
+--- arpc/axprt_pipe.C	(revision 2973)
++++ arpc/axprt_pipe.C	(working copy)
+@@ -45,7 +45,8 @@
+   out = New suio;
+   pktbuf = NULL;
+   bytes_sent = bytes_recv = 0;
+-
++  pending_pkt = false;
++  
+ #if defined (SO_SNDBUF)
+   socklen_t sn = sizeof (sndbufsz);
+   if (getsockopt (fdwrite, SOL_SOCKET, SO_SNDBUF, (char *) &sndbufsz, &sn))
+@@ -294,6 +295,25 @@
+ 
+   if ((eom - cp) < len)
+     return false;
++
++  /*check if there are more packets pending*/
++  pending_pkt = true;
++  if (eom - cp - len < 4) 
++      pending_pkt = false;
++  else {
++      int32_t l = getint(cp+len);
++      if (!l || (!(l & 0x80000000)))
++          pending_pkt = false;
++      else {
++          l &= 0x7fffffff;
++          if ((u_int32_t) l > pktsize)
++             pending_pkt = false;
++          else if (eom - cp - len - 4 < l) 
++	      pending_pkt = false;
++      }
++  }
++  /**/
++  
+   *cpp = cp + len;
+   (*cb) (cp, len, NULL);
+   return true;

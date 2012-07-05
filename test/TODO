@@ -1,0 +1,4 @@
+- Add test that tests different chunk sizes
+- Add tests for the compression plugin
+- Add tests for the convergent encryption plugin
+

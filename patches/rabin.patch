@@ -1,0 +1,39 @@
+Index: crypt/rabin_fprint.h
+===================================================================
+--- crypt/rabin_fprint.h	(revision 3474)
++++ crypt/rabin_fprint.h	(working copy)
+@@ -39,8 +39,9 @@
+   void stop();
+   ptr<vec<unsigned int> > chunk_data (const unsigned char *data, size_t size);
+   ptr<vec<unsigned int> > chunk_data (suio *in_data);
++  void set_chunk_size (unsigned val) { chunk_size = val; }
+ 
+-  static const unsigned chunk_size = 32768;
++  unsigned chunk_size;
+   static unsigned min_size_suppress;
+   static unsigned max_size_suppress;
+ };
+Index: crypt/fprint.h
+===================================================================
+--- crypt/fprint.h	(revision 3474)
++++ crypt/fprint.h	(working copy)
+@@ -15,6 +15,7 @@
+   virtual ptr<vec<unsigned int> > chunk_data (const unsigned char *data,
+ 					      size_t size) = 0;
+   virtual ptr<vec<unsigned int> > chunk_data (suio *in_data) = 0;
++  virtual void set_chunk_size (unsigned) = 0;
+ };
+ 
+ #endif // _FPRINT_H_
+Index: crypt/rabin_fprint.C
+===================================================================
+--- crypt/rabin_fprint.C	(revision 3474)
++++ crypt/rabin_fprint.C	(working copy)
+@@ -29,6 +29,7 @@
+   _cur_pos = 0;
+   _w.reset();
+   _num_chunks = 0;
++  chunk_size = 32768;
+ }
+ 
+ rabin_fprint::~rabin_fprint()

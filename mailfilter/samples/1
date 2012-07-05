@@ -1,0 +1,15 @@
+Connect from eep.lcs.mit.edu, TLSv1/SSLv3 (localhost.lcs.mit.edu [127.0.0.1])
+
+FROM dga (2 arguments)
+RCPT dga (1 argument)
+Received: (from dga@localhost)
+        by eep.lcs.mit.edu (8.13.1/8.13.1/Submit) id j8KJPSND026503
+        for dga; Tue, 20 Sep 2005 15:25:28 -0400 (EDT)
+        (envelope-from dga)
+Date: Tue, 20 Sep 2005 15:25:28 -0400 (EDT)
+From: Dave Andersen <dga@eep.lcs.mit.edu>
+Message-Id: <200509201925.j8KJPSND026503@eep.lcs.mit.edu>
+To: dga@eep.lcs.mit.edu
+Subject: Testing 2
+
+meow

@@ -1,0 +1,6 @@
+This directory is for things that really don't fit anywhere else;
+please try really, really hard to find a better place for code.
+
+I'm creating it to have a place to check in some quick-and-dirty
+database benchmarking code for evaluating potential backends for
+DOT that doesn't seem to fit into the main tree.

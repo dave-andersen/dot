@@ -1,0 +1,37 @@
+if (test) {
+    ....
+}
+else {
+    ...
+}
+
+void
+function_name(...)
+{
+    implementation;
+}
+
+class helloFoo {
+    members;
+};
+
+ptr<char *> foo;  // NOT: ptr<char * > foo, with a space
+
+--------------------------
+IMPORTANT LIBASYNC NOTES:
+--------------------------
+
+- Always check return values: for example, functions like xdr2bytes()
+  and bytes2xdr() return a bool to tell you if the marshal/unmarshal
+  was successful.
+
+- Be careful about leaking memory: it's common to use vNew to instantiate
+  a new object without the caller keeping a pointer to it.  If you do that,
+  you must either
+    - be sure to have the object delete itself when it's finished, or
+    - make sure the object inserts itself (via the constructor)
+      into a list/table, in which case someone will delete the object
+      later manually, or
+    - make the object referenced counted and have the object store a 
+      reference to itself (e.g., in a list) and have someone remove it
+      from the list later

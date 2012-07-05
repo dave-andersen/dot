@@ -1,0 +1,31 @@
+Base case
+
+2 seeds, 1 receiver, 10MB file, 
+static chunking, 
+each source has 3000Kbps download and
+768Kbps upload, 40ms RTT
+
+-----------------------------
+Base case +
+
+3 similar sources, 3 different similar files
+each of size 10MB. File to be downloaded is 60% similar to 
+each of these similar files.
+static chunking, 
+each similar source has 3000Kbps download and
+768Kbps upload, 40ms RTT
+
+-----------------------------
+Base case +
+
+3 similar sources, 3 different similar files each of size 10MB. File
+to be downloaded is 15% similar to each of these similar files but the
+similar blocks in each similar file are disjoint with respect to each
+other. So the overall similarity of the file to be downloaded with all
+the similar files is 15*3 = 45%
+
+static chunking, each similar source has 3000Kbps download and 768Kbps
+upload, 40ms RTT
+
+
+
